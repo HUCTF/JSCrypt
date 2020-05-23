@@ -1,0 +1,276 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>JSCrypt Electron App - 湖州师范学院·网络空间安全实验室开源中心</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-size: 16px;
+        }
+
+        a.no-style {
+            color: inherit;
+            text-decoration: inherit;
+        }
+
+        label.no-style {
+            font-weight: normal;
+        }
+    </style>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-73629908-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>
+                    JSCrypt Electron App
+                </h1>
+                <p>
+                    JSCrypt is an Electron App based on the crypto-js and StatiCrypt.
+                </p>
+                <p>JSCrypt uses open source AES-256
+                    military grade encryption to encrypt user input with encryption key
+                    and embed it in a HTML file with a password prompt that can decrypted in-browser (client side).
+                </p>
+                <p>
+                    <b class="text-warning">Caution!</b> I've no fucking idea what I'm doing. Don't blame me if this
+                    piece of crap breaks your shit.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <form id="encrypt_form">
+                    <div class="form-group">
+                        <label for="passphrase">Encryption key</label>
+                        <input type="password" class="form-control" id="passphrase"
+                            placeholder="The longer,the better~">
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Encrypted page title</label>
+                        <input type="text" class="form-control" id="title" placeholder="Default: 'Protected Page'">
+                    </div>
+                    <div class="form-group">
+                        <label for="unencrypted_html">HTML/string to encrypt</label>
+                        <textarea class="form-control" id="unencrypted_html" placeholder="<html><head>..."
+                            rows="5"></textarea>
+                    </div>
+                    <p>
+                        <a href="#" id="toggle-extra-option">+ Advanced options</a>
+                    </p>
+                    <div id="extra-options" class="hidden">
+                        <div class="form-group">
+                            <label for="instructions">Instructions to display the user</label>
+                            <textarea class="form-control" id="instructions" placeholder="Default: nothing."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="no-style">
+                            <input type="checkbox" id="embed-crypto" checked>
+                            Embed crypto-js into HTML file
+                        </label>
+                        <p><b class="text-info">Note:</b> Leave checked to include crypto-js into HTML file so that user
+                            can decrypt it offline.</p>
+                        <p>
+                            Uncheck to load crypto-js from a CDN to avoid being treated as a crypto miner.</p>
+                    </div>
+                    <button class="btn btn-info" type="submit">Generate encrypted HTML file</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>Encrypted HTML</h2>
+                <p><a class="btn btn-danger download" download="encrypted.html" id="download-link"
+                        disabled="disabled">Download encrypted HTML file</a></p>
+                <pre id="encrypted_html_display">
+Encrypted String</pre>
+            </div>
+        </div>
+    </div>
+
+    <!--
+Crypto JS 3.1.9-1
+Copied as is from https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js
+Filename changed to circumvent adblockers that mistake it for a crypto miner (see https://github.com/robinmoisson/staticrypt/issues/107)
+-->
+    <script src="kryptojs-3.1.9-1-lib.js"></script>
+
+    <script src="https://cdn.ckeditor.com/4.7.0/standard/ckeditor.js"></script>
+
+    <script>
+        // enable CKEDIRTOR
+        CKEDITOR.replace('instructions');
+
+        var htmlToDownload;
+
+        var renderTemplate = function (tpl, data) {
+            return tpl.replace(/{(.*?)}/g, function (_, key) {
+                return data && data[key] || '';
+            });
+        };
+
+        /**
+         * Fill the password prompt template with data provided.
+         * @param data
+         */
+        var setFileToDownload = function (data) {
+            var request = new XMLHttpRequest();
+            request.open('GET', 'password_template.html', true);
+            request.onload = function () {
+                var renderedTmpl = renderTemplate(request.responseText, data);
+
+                var downloadLink = document.querySelector('a.download');
+                downloadLink.href = 'data:text/html,' + encodeURIComponent(renderedTmpl);
+                downloadLink.removeAttribute('disabled');
+
+                htmlToDownload = renderedTmpl;
+            };
+            request.send();
+        };
+
+        /**
+         * Download crypto-js lib to embed it in the generated file, update the file when done.
+         * @param data
+         */
+        var setFileToDownloadWithEmbeddedCrypto = function (data) {
+            var request = new XMLHttpRequest();
+            request.open('GET', 'kryptojs-3.1.9-1-lib.js', true);
+            request.onload = function () {
+                data['crypto_tag'] = '<script>' + request.responseText + '</scr' + 'ipt>';
+                setFileToDownload(data);
+            };
+            request.send();
+        };
+
+        /**
+         * Salt and encrypt a msg with a password.
+         * Inspired by https://github.com/adonespitogo
+         */
+        var keySize = 256;
+        var iterations = 1000;
+
+        function encrypt(msg, password) {
+            var salt = CryptoJS.lib.WordArray.random(128 / 8);
+
+            var key = CryptoJS.PBKDF2(password, salt, {
+                keySize: keySize / 32,
+                iterations: iterations
+            });
+
+            var iv = CryptoJS.lib.WordArray.random(128 / 8);
+
+            var encrypted = CryptoJS.AES.encrypt(msg, key, {
+                iv: iv,
+                padding: CryptoJS.pad.Pkcs7,
+                mode: CryptoJS.mode.CBC
+            });
+
+            // salt, iv will be hex 32 in length
+            // append them to the ciphertext for use  in decryption
+            var encryptedMsg = salt.toString() + iv.toString() + encrypted.toString();
+            return encryptedMsg;
+        }
+
+        /**
+         * Handle form submission.
+         */
+        document.getElementById('encrypt_form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // update instruction textarea value with CKEDITOR content
+            // (see https://stackoverflow.com/questions/3147670/ckeditor-update-textarea)
+            CKEDITOR.instances['instructions'].updateElement();
+
+            var unencrypted = document.getElementById('unencrypted_html').value;
+            var passphrase = document.getElementById('passphrase').value;
+
+            var encrypted = encrypt(unencrypted, passphrase);
+            var hmac = CryptoJS.HmacSHA256(encrypted, CryptoJS.SHA256(passphrase).toString()).toString();
+            var encryptedMsg = hmac + encrypted;
+
+            var pageTitle = document.getElementById('title').value.trim();
+            var instructions = document.getElementById('instructions').value;
+            var data = {
+                title: pageTitle ? pageTitle : 'Protected Page',
+                instructions: instructions ? instructions : '',
+                encrypted: encryptedMsg,
+                crypto_tag: '<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js" integrity="sha384-lp4k1VRKPU9eBnPePjnJ9M2RF3i7PC30gXs70+elCVfgwLwx1tv5+ctxdtwxqZa7" crossorigin="anonymous"></scr' +
+                    'ipt>'
+            };
+
+            document.getElementById('encrypted_html_display').textContent = encryptedMsg;
+
+            if (document.getElementById("embed-crypto").checked) {
+                setFileToDownloadWithEmbeddedCrypto(data);
+            } else {
+                setFileToDownload(data);
+            }
+
+        });
+
+        document.getElementById('toggle-extra-option')
+            .addEventListener('click', function (e) {
+                e.preventDefault();
+                document.getElementById('extra-options').classList.toggle('hidden');
+            });
+
+        document.getElementById('toggle-concept')
+            .addEventListener('click', function (e) {
+                e.preventDefault();
+                document.getElementById('concept').classList.toggle('hidden');
+            });
+
+
+        /**
+         * Browser specific download code.
+         */
+        document.getElementById('download-link')
+            .addEventListener('click', function (e) {
+
+                var isIE = (navigator.userAgent.indexOf("MSIE") !== -1) || (!!document.documentMode ===
+                    true); // >= 10
+                var isEdge = navigator.userAgent.indexOf("Edge") !== -1;
+
+                // download with MS specific feature
+                if (htmlToDownload && (isIE || isEdge)) {
+                    e.preventDefault();
+                    var blobObject = new Blob([htmlToDownload]);
+                    window.navigator.msSaveOrOpenBlob(blobObject, 'encrypted.html');
+                }
+
+                return true;
+            })
+    </script>
+
+
+</body>
+
+</html>
