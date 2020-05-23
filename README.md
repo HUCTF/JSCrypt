@@ -19,3 +19,7 @@
 - JSCrypt uses open source AES-256 military grade encryption to encrypt user input with encryption key and embed it in a HTML file with a password prompt that can decrypted in-browser (client side).
 
 - Basically JSCript encrypts the entire page and packs everything with a user-friendly way to use a password in the new file.
+
+## DIY Build
+
+- 'npm i' to install dep
