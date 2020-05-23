@@ -28,3 +28,4 @@
 
 - `npm run package-win` for Windows build, `npm run package-linux` for Linux build, `npm run package-mac` for Mac build
 
+- `npm cache clean --force` in case of build error
