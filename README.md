@@ -22,4 +22,9 @@
 
 ## DIY Build
 
-- 'npm i' to install dep
+- `npm i` to install dependencies
+
+- `npm start` to test build
+
+- `npm run package-win` for Windows build, `npm run package-linux` for Linux build, `npm run package-mac` for Mac build
+
