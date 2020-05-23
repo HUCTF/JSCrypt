@@ -10,11 +10,8 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/HUCTF/JSCrypt.git"
   },
-  "author": "",
-  "license": "ISC",
-  "homepage": "",
   "dependencies": {
     "electron": "^9.0.0"
   },
