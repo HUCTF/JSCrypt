@@ -16,7 +16,7 @@
 
 - JSCrypt generates a password protected HTML file that can be decrypted in-browser: just send or upload the generated page to a place serving static content (github pages, for example) and that's all: the javascript will prompt users for password, decrypt the page and load the HTML file.
 
-- JSCrypt uses open source AES-256 military grade encryption to encrypt user input with encryption key and embed it in a HTML file with a password prompt that can decrypted in-browser (client side).
+- JSCrypt uses open source [AES-256 military grade encryption](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) to encrypt user input with encryption key and embed it in a HTML file with a password prompt that can decrypted in-browser (client side).
 
 - Basically JSCript encrypts the entire page and packs everything with a user-friendly way to use a password in the new file.
 
