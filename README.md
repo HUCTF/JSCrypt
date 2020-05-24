@@ -9,7 +9,7 @@
 </p>
 
 
- JSCrypt is an Electron App based on the crypto-js and StatiCrypt.
+ JSCrypt is an Electron App based on the [crypto-js](https://github.com/brix/crypto-js) and [StatiCrypt](https://www.npmjs.com/package/staticrypt).
 
 
 ## Features
