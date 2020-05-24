@@ -29,3 +29,13 @@
 - `npm run package-win` for Windows build, `npm run package-linux` for Linux build, `npm run package-mac` for Mac build
 
 - `npm cache clean --force` in case of build error
+
+## Author
+
+[HUCTF](https://github.com/HUCTF)
+
+## Developer
+
+[99kies](https://github.com/99Kies) 
+
+[Sierra117](https://sierra007117.github.io/)
