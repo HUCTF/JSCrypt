@@ -2,9 +2,9 @@
   <br>
   <img alt="Logo" src="https://i-cdn.phonearena.com/images/articles/246655-image/025Pikachu-OS-anime-5.png" width="200">
   <br><br>
-  <a href="https://github.com/HUCTF/JSCrypt/raw/master/release-builds/JSCript-win32-ia32.rar" target="_blank"><img alt="undefined" src="https://badgen.net/badge/Download/Windows/?color=blue&icon=windows&label"></a>
-  <a href="https://github.com/HUCTF/JSCrypt/raw/master/release-builds/JSCript-win32-ia32/JSCript.exe" target="_blank"><img alt="undefined" src="https://badgen.net/badge/Download/macOS/?color=grey&icon=apple&label"></a>
-  <a href="https://github.com/HUCTF/JSCrypt/raw/master/release-builds/JSCript-win32-ia32/JSCript.exe" target="_blank"><img alt="undefined" src="https://badgen.net/badge/Download/Linux64/?color=orange&icon=terminal&label"></a>
+  <a href="https://github.com/HUCTF/JSCrypt/raw/master//JSCryptrelease-builds/JSCript-win32-ia32.rar" target="_blank"><img alt="undefined" src="https://badgen.net/badge/Download/Windows/?color=blue&icon=windows&label"></a>
+  <a href="https://github.com/HUCTF/JSCrypt/raw/master/JSCrypt/release-builds/JSCript-win32-ia32/JSCript.exe" target="_blank"><img alt="undefined" src="https://badgen.net/badge/Download/macOS/?color=grey&icon=apple&label"></a>
+  <a href="https://github.com/HUCTF/JSCrypt/raw/master/JSCrypt/release-builds/JSCript-win32-ia32/JSCript.exe" target="_blank"><img alt="undefined" src="https://badgen.net/badge/Download/Linux64/?color=orange&icon=terminal&label"></a>
   <br><br><br>
 </p>
 
