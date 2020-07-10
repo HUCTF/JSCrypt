@@ -36,6 +36,4 @@ Project maintained by [HUCTF](https://github.com/HUCTF).
 
 ## Developer
 
-- [99Kies](https://github.com/99Kies) 
-
-- [Sierra117](https://sierra007117.github.io/)
+[![](https://sourcerer.io/fame/Sierra007117/HUCTF/JSCrypt/images/0)](https://sourcerer.io/fame/Sierra007117/HUCTF/JSCrypt/links/0)[![](https://sourcerer.io/fame/Sierra007117/HUCTF/JSCrypt/images/1)](https://sourcerer.io/fame/Sierra007117/HUCTF/JSCrypt/links/1)[![](https://sourcerer.io/fame/Sierra007117/HUCTF/JSCrypt/images/2)](https://sourcerer.io/fame/Sierra007117/HUCTF/JSCrypt/links/2)[![](https://sourcerer.io/fame/Sierra007117/HUCTF/JSCrypt/images/3)](https://sourcerer.io/fame/Sierra007117/HUCTF/JSCrypt/links/3)[![](https://sourcerer.io/fame/Sierra007117/HUCTF/JSCrypt/images/4)](https://sourcerer.io/fame/Sierra007117/HUCTF/JSCrypt/links/4)[![](https://sourcerer.io/fame/Sierra007117/HUCTF/JSCrypt/images/5)](https://sourcerer.io/fame/Sierra007117/HUCTF/JSCrypt/links/5)[![](https://sourcerer.io/fame/Sierra007117/HUCTF/JSCrypt/images/6)](https://sourcerer.io/fame/Sierra007117/HUCTF/JSCrypt/links/6)[![](https://sourcerer.io/fame/Sierra007117/HUCTF/JSCrypt/images/7)](https://sourcerer.io/fame/Sierra007117/HUCTF/JSCrypt/links/7)
